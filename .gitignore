@@ -1,0 +1,4 @@
+*.prototxt
+*.caffemodel
+*.h5
+**/db/*
