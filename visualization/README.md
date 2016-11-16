@@ -22,7 +22,7 @@ If multiple loss outputs exist, all will be rendered.
 
 ## First layer kernel visualization
 
-The `layerviz.py` script visualizes the kernel weights of 1D or 3D kernels in the first layer.
+The `layerviz.py` script visualizes the kernel weights of 1D or 3D kernels in the first layer. It is inspired by [this](https://github.com/gustavla/caffe-weighted-samples/blob/master/examples/filter_visualization.ipynb) Jupyter notebook.
 
 Usage:
 
