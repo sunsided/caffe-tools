@@ -30,9 +30,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('logfile', nargs='?', help='The log file to use.')
     parser.add_argument('-c', '--combined', default=False, action='store_true', help='Show combined loss.')
+    parser.add_argument('-l', '--log', default=False, action='store_true', help='Use logarithmic loss axes.')
     args = parser.parse_args()
 
     show_combined = args.combined
+    logarithmic = args.log
 
     logfile = args.logfile
     if logfile is None:
@@ -134,13 +136,15 @@ def main():
     ax3.set_ylim([0.1 * np.min(lr_value), 10 * np.max(lr_value)])
     ax3.set_xlabel('iteration')
 
+    plot_fun = ax1.plot if not logarithmic else ax1.semilogy
     for name in losses:
-        ax1.plot(losses[name]['iteration'], losses[name]['value'], linestyle='-', marker='.', label=name)
+        plot_fun(losses[name]['iteration'], losses[name]['value'], linestyle='-', marker='.', label=name)
     if show_combined:
-        ax1.plot(loss_iteration, loss_value, linestyle=':', marker='.', label='combined loss')
+        plot_fun(loss_iteration, loss_value, linestyle=':', marker='.', label='combined loss')
 
+    plot_fun = ax2.plot if not logarithmic else ax2.semilogy
     for name in validation_losses:
-        ax2.plot(validation_losses[name]['iteration'], validation_losses[name]['value'], linestyle='-', marker='.', label=name)
+        plot_fun(validation_losses[name]['iteration'], validation_losses[name]['value'], linestyle='-', marker='.', label=name)
 
     ax3.semilogy(lr_iteration, lr_value, label='learning rate')
 
@@ -158,3 +162,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
